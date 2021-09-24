@@ -1,8 +1,5 @@
 #include <Adafruit_BMP085.h>
 #include <MIDI.h>
-
-#include <bitset>
-using namespace std;
 /*
 (1 << 0); // 0000 0000 0000 0001
 (1 << 1); // 0000 0000 0000 0010
