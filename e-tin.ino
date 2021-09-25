@@ -34,39 +34,11 @@ const int sOUT[] = {2, 4, 6, 8, 10, 12};
 
 const int LED = 13;
 
+const int threshold = 5;
+
 double pressL, pressH;
 
 int prevNote = 20;
-
-void setup() {
-    for (int i = 0; i < 6; i++) {
-        pinMode(sIN[i], INPUT);
-        pinMode(sOUT[i], OUTPUT);
-    }
-    for (int i = 0; i < 6; i++) {
-        digitalWrite(sOUT[i], HIGH);
-    }
-
-    pinMode(LED, OUTPUT);
-    digitalWrite(LED, LOW);
-
-    // MIDI
-    MIDI.begin(1);
-
-    // BMP180
-    Serial.begin(9600);
-    if (!bmp.begin()) {
-        Serial.println("Could not find a valid BMP085 sensor, check wiring!");
-        while (1) {
-        }
-    }
-
-    calibrate();
-}
-
-void loop() {
-    sendnote();
-}
 
 void calibrate() {
     // 1オクターブ目
@@ -100,13 +72,54 @@ void calibrate() {
     digitalWrite(13, LOW);
 }
 
-void sendnote() {
+void setup() {
+    for (int i = 0; i < 6; i++) {
+        pinMode(sIN[i], INPUT);
+        pinMode(sOUT[i], OUTPUT);
+    }
+    for (int i = 0; i < 6; i++) {
+        digitalWrite(sOUT[i], HIGH);
+    }
+
+    pinMode(LED, OUTPUT);
+    digitalWrite(LED, LOW);
+
+    // MIDI
+    MIDI.begin(1);
+
+    // BMP180
+    Serial.begin(9600);
+    if (!bmp.begin()) {
+        Serial.println("Could not find a valid BMP085 sensor, check wiring!");
+        while (1) {
+        }
+    }
+
+    calibrate();
+}
+
+int checkTimeLag(int a, int b) {
+    int counter = 0;
+    digitalWrite(a, HIGH);
+    while (digitalRead(b) != HIGH)
+        counter++;
+    digitalWrite(a, LOW);
+    delay(1);
+    return counter;
+}
+
+int readBtn() {
     unsigned int bit = 0;
     for (int i = 0; i < 6; i++) {
-        if (digitalRead(sIN[i]) == HIGH) {
+        int counter = checkTimeLag(sOUT[i], sIN[i]);
+        if (counter > threshold) {
             bit |= BIT_FLAG[i];
         }
     }
+    return bit;
+}
+
+void sendnote(unsigned int bit) {
     int noteNum; // 20で無音
     // 0 1 2  3 4 5 6 7  8 9 0  1 2 3 4 5
     // D E F# G A B C C# d e f# g a b c c#
@@ -159,4 +172,9 @@ void sendnote() {
     }
 
     prevNote = noteNum;
+}
+
+void loop() {
+    unsigned int checkbit = readBtn();
+    sendnote(checkbit);
 }
