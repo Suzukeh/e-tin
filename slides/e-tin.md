@@ -40,9 +40,9 @@ Arduinoに頼りまくって作る電子民族管楽器
 
 ## 成れの果て
 
-<img src="https://cdn.discordapp.com/attachments/843919142930874408/891508649611108362/image0.jpg" style="width: 70%; border: none; box-shadow:none;transform:rotate(0deg)"/>
+<img src="https://cdn.discordapp.com/attachments/843919142930874408/891508649611108362/image0.jpg" style="width: 60%; border: none; box-shadow:none;transform:rotate(0deg)"/>
 
-<small>ラップの芯？ なに下の箱？ 配線クソか？ てかブレッドボード？</small> {.fragment .fade-up}
+<small>ラップの芯？ なにくっついてんの？ 配線クソか？ てかブレッドボード？</small> {.fragment .fade-up}
 
 --
 
@@ -59,6 +59,7 @@ Arduinoに頼りまくって作る電子民族管楽器
 
 --
 
+そもそも
 ### ティンホイッスルとは
 
 アイルランド周辺でよく用いられる民族楽器
@@ -119,6 +120,30 @@ Arduinoに頼りまくって作る電子民族管楽器
 --
 
 ### ブレス
-たぶん一番新規性がマシ
+たぶん一番新規性がマシなところ
 
 息の強さでオクターブ切り替えをするのがメインのものがなさそう (やろうと思えばできそうだが)
+
+でも実装は本当に単純にifで区切っただけ {.fragment .fade-up}
+
+--
+
+物理的にも、これにBMP180を入れてあるだけ<br>
+<img src="https://akizukidenshi.com/img/goods/C/M-12854.jpg" style="width: 50%; border: none; box-shadow:none;transform:rotate(0deg)"/>
+<img src="https://www.packplus.jp/html/user_data/assets/img/product/1018128-1.jpg" style="width: 40%; border: none; box-shadow:none;transform:rotate(0deg)"/>
+
+でも結構感度はいい {.fragment .fade-up}
+
+---
+
+##  まとめ
+
+* (たぶん)存在していない電子楽器ができた
+* 適したマイコンを使うべき
+* MIDIは電子楽器としてさすがに必須
+* タッチセンサは誤検知(というか個体差?)があるので、きちんとしたのを使った方がいい
+* 大気圧センサ、優秀すぎ
+
+でもまあ、意外と結構うまくいったと思います {.fragment .fade-up}
+
+https://github.com/Suzukeh/e-tin {.fragment .fade-up}
