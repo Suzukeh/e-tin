@@ -27,8 +27,7 @@ const int freq[] = {294, 330, 370, 392, 440, 494, 523, 554, 587, 659, 698, 740,
     784, 880, 988, 1047, 1109};
 // const int notes[] = {
 // 74, 76, 78, 79, 81, 83, 84, 85, 86, 88, 90, 91, 93, 95, 96, 97
-//}
-;
+//};
 // 0 1 2  3 4 5 6 7  8 9 0  1 2 3 4 5
 // D E F# G A B C C# d e f# g a b c c#
 
@@ -37,6 +36,7 @@ const int sIN[] = {2, 4, 6, 8, 10, 12};
 const int sOUT[] = {3, 5, 7, 9, 11, 15};
 
 const int LED = 13;
+const int SP = 14;
 
 const double threshold[] = {9, 9, 8, 8, 8, 8};
 
@@ -48,17 +48,17 @@ void calibrate() {
     // int32_t pL, pH;
     // 1オクターブ目
     digitalWrite(LED, HIGH);
-    tone(14, 294, 500);
+    tone(SP, 294, 500);
     delay(500);
     digitalWrite(LED, LOW);
     delay(500);
     digitalWrite(LED, HIGH);
-    tone(14, 294, 500);
+    tone(SP, 294, 500);
     delay(500);
     digitalWrite(LED, LOW);
     delay(500);
     digitalWrite(LED, HIGH);
-    tone(14, 294, 1500);
+    tone(SP, 294, 1500);
     delay(1000);
     pressL = bmp.readPressure();
     // Serial.println(pressL);
@@ -66,17 +66,17 @@ void calibrate() {
     delay(1000);
     // 2オクターブ目
     digitalWrite(LED, HIGH);
-    tone(14, 587, 500);
+    tone(SP, 587, 500);
     delay(500);
     digitalWrite(LED, LOW);
     delay(500);
     digitalWrite(LED, HIGH);
-    tone(14, 587, 500);
+    tone(SP, 587, 500);
     delay(500);
     digitalWrite(LED, LOW);
     delay(500);
     digitalWrite(LED, HIGH);
-    tone(14, 587, 1500);
+    tone(SP, 587, 1500);
     delay(1000);
     pressH = bmp.readPressure();
     // Serial.println(pressH);
@@ -155,10 +155,10 @@ void sendnote(unsigned int bit) {
     }
     if (noteNum <= 15) {
         // MIDI.sendNoteOn(notes[noteNum], 127, 1);
-        tone(14, freq[noteNum]);
+        tone(SP, freq[noteNum]);
         digitalWrite(LED, HIGH);
     } else {
-        noTone(14);
+        noTone(SP);
     }
     Serial.println(noteNum);
     prevNote = noteNum;
