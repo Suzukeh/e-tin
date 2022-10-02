@@ -111,14 +111,16 @@ void setup() {
 void loop() {
 
     double press = double(bmp.readPressure()) / 100; //気圧(hPa)
-                                                     /*
-                                                         //接続と気圧(hpa)の表示
-                                                         String bar = "";
-                                                         for (int i = 0; i < ((press - 1000) * 4); i++) {
-                                                             bar += "-";
-                                                         }
-                                                         Serial.println(String(press) + ":" + isConnected + bar);
-                                                     */
+
+    /*
+        //接続と気圧(hpa)の表示
+        String bar = "";
+        for (int i = 0; i < ((press - 1000) * 4); i++) {
+            bar += "-";
+        }
+        Serial.println(String(press) + ":" + isConnected + bar);
+    */
+
     double dp = press - pPress;
     int note = getnote(press);
 
